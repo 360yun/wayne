@@ -44,15 +44,22 @@ import (
 )
 
 const (
-	GetPodInfoAction          = "GET_POD_INFO"
-	GetPodInfoFromIPAction    = "GET_POD_INFO_FROM_IP"
-	GetResourceInfoAction     = "GET_RESOURCE_INFO"
-	GetDeploymentStatusAction = "GET_DEPLOYMENT_STATUS"
-	UpgradeDeploymentAction   = "UPGRADE_DEPLOYMENT"
-	ScaleDeploymentAction     = "SCALE_DEPLOYMENT"
-	RestartDeploymentAction   = "RESTART_DEPLOYMENT"
-	GetPodListAction          = "GET_POD_LIST"
-	PermissionPrefix          = "OPENAPI_"
+	GetPodInfoAction             = "GET_POD_INFO"
+	GetPodInfoFromIPAction       = "GET_POD_INFO_FROM_IP"
+	GetResourceInfoAction        = "GET_RESOURCE_INFO"
+	GetDeploymentStatusAction    = "GET_DEPLOYMENT_STATUS"
+	UpgradeDeploymentAction      = "UPGRADE_DEPLOYMENT"
+	ScaleDeploymentAction        = "SCALE_DEPLOYMENT"
+	RestartDeploymentAction      = "RESTART_DEPLOYMENT"
+	GetDeploymentDetailAction    = "GET_DEPLOYMENT_DETAIL"
+	GetLatestDeploymentTplAction = "GET_LATEST_DEPLOYMENT_TPL"
+	GetPodListAction             = "GET_POD_LIST"
+
+	ListNamespaceUsers = "LIST_NAMESPACE_USERS"
+	ListNamespaceApps  = "LIST_NAMESPACE_APPS"
+	ListAppDeploys     = "List_APP_DEPLOYS"
+
+	PermissionPrefix = "OPENAPI_"
 )
 
 type OpenAPIController struct {

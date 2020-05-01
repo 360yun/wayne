@@ -3,35 +3,18 @@
 # BUILD COMMAND :
 # docker --build-arg RELEASE_VERSION=v1.0.0 -t infra/wayne:v1.0.0 .
 
-# build ui
-FROM 360cloud/wayne-ui-builder:v1.0.1 as frontend
-
-ARG RAVEN_DSN
-
-COPY src/frontend /workspace
-
-RUN sed -i  "s~__ravenDsn__~${RAVEN_DSN}~g" /workspace/src/environments/environment.prod.ts
-
-RUN cd /workspace && \
-       npm config set registry https://registry.npm.taobao.org && \
-       npm install && \
-       npm run build
-
 # build server
-FROM 360cloud/wayne-server-builder:v1.0.1 as backend
+FROM 360cloud/wayne-server-builder:v1.0.2 as backend
 
 COPY go.mod /go/src/github.com/Qihoo360/wayne
 COPY go.sum /go/src/github.com/Qihoo360/wayne
-
 COPY src/backend /go/src/github.com/Qihoo360/wayne/src/backend
 
-RUN rm -rf /go/src/github.com/Qihoo360/wayne/src/backend/static
-
-COPY --from=frontend /workspace/dist/ /go/src/github.com/Qihoo360/wayne/src/backend/static/
-
-COPY --from=frontend /workspace/dist/index.html /go/src/github.com/Qihoo360/wayne/src/backend/views/
-
-RUN export GO111MODULE=on && cd /go/src/github.com/Qihoo360/wayne/src/backend && bee generate docs && bee pack -o /_build
+RUN export GO111MODULE=on && \
+    export GOPROXY=https://goproxy.io && \
+    cd /go/src/github.com/Qihoo360/wayne/src/backend && \
+    bee generate docs && \
+    bee pack -o /_build
 
 # build release image
 FROM 360cloud/centos:7

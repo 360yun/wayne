@@ -15,7 +15,7 @@ import { ObjectMeta } from '../../model/v1/kubernetes/base';
 
 export class CreateEditResourceTemplate {
   ngForm: NgForm;
-  @ViewChild('ngForm')
+  @ViewChild('ngForm', { static: true })
   currentForm: NgForm;
 
 
@@ -73,10 +73,17 @@ export class CreateEditResourceTemplate {
     this.aceEditorService.announceMessage(AceEditorMsg.Instance(resourceObj, true));
   }
 
-  // 处理资源（挂载系统 label 等）
+  // 处理资源（挂载系统 label 等）删除 host
   generateResource(kubeResource: any): any {
     kubeResource.metadata.name = this.resource.name;
     kubeResource.metadata.labels = this.generateLabels(this.kubeResource.metadata.labels);
+    const { rules } = kubeResource.spec;
+    rules.forEach(rule => {
+      if (rule.host !== undefined && rule.host.trim() === '') {
+        delete rule.host;
+      }
+    });
+    console.log('kubeResource', kubeResource);
     return kubeResource;
   }
 

@@ -133,6 +133,15 @@ func (n *namespaceUserModel) GetById(id int64, allGroupFlag bool) (v *NamespaceU
 	return
 }
 
+func (m *namespaceUserModel) GetUserListByNamespaceId(nid int64) (nsUsers []NamespaceUser, err error) {
+	qs := Ormer().QueryTable(TableNameNamespaceUser).RelatedSel(TableNameUser).RelatedSel(TableNameGroup).
+		Filter("namespace__id__exact", nid)
+	if _, err = qs.All(&nsUsers); err != nil {
+		return
+	}
+	return
+}
+
 func (n *namespaceUserModel) GetNSId(uid int64, perName string) (nids []int64, err error) {
 	qs := Ormer().QueryTable(TableNameNamespaceUser).
 		Filter("user__id__exact", uid).
@@ -241,5 +250,17 @@ func (n *namespaceUserModel) GetAllPermission(aid int64, uid int64) (permissions
 	if _, err = qs.All(&permissions); err != nil {
 		return
 	}
+	return
+}
+
+// change namespaceId of namespaceUser from sourceId to targetId
+func (*namespaceUserModel) UpdateByNamespaceId(sourceId, targetId int64) (err error) {
+	var sql string
+	sql = "update " + TableNameNamespaceUser + " set namespace_id=? where namespace_id=?;"
+	args := [...]interface{} {
+		targetId,
+		sourceId,
+	}
+	_, err = orm.NewOrm().Raw(sql, args).Exec()
 	return
 }
