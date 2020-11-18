@@ -14,11 +14,7 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 
 > 命名起源：360 搜索私有云团队多数项目命名都来源于 DC 漫画的角色，Wayne 也不例外，[Wayne](https://en.wikipedia.org/wiki/Batman#Bruce_Wayne) 是声名显赫的超级英雄蝙蝠侠 Bruce Wayne 的名字。
 
-![控制面板](http://360yun.org/wayne/images/dashboard-ui.png)
-
-## 演示
-
-[http://demo.360yun.org](https://demo.360yun.org)
+![控制面板](docs/images/dashboard-ui.png)
 
 ## Features
 
@@ -37,7 +33,7 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 
 整体采用前后端分离的方案，其中前端采用 Angular 框架进行数据交互和展示，使用 Ace 编辑器进行 Kubernetes 资源模版编辑。后端采用 Beego 框架做数据接口处理，使用 Client-go 与 Kubernetes 进行交互，数据使用 MySQL 存储。
 
-![架构图](http://360yun.org/wayne/images/architecture.png)
+![架构图](docs/images/architecture.png)
 
 ## 组件
 
@@ -57,7 +53,7 @@ Wayne已大规模服务于360搜索，承载了内部绝大部分业务，稳定
 - 克隆代码仓库
 
 ```bash
-$ go get github.com/Qihoo360/wayne
+$ git clone https://github.com/Qihoo360/wayne.git
 ```
 
 - 启动服务
@@ -77,10 +73,6 @@ $ docker-compose -f ./hack/docker-compose/docker-compose.yaml up
 - 请参照 [Wiki](http://360yun.org/wayne/)
 
 ## 联系我们
-
-微信
-
-![微信](http://70data-net-static.smartgslb.com/upload/work/wechat.jpg)
 
 邮箱
 
